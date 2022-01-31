@@ -24,8 +24,6 @@ describe("Get Balance", () => {
       email: 'test@test.com',
       password: 'test'
     })
-
-
   })
 
   beforeEach(async () => {
@@ -50,7 +48,6 @@ describe("Get Balance", () => {
       description: 'withdraw test 10 bucks'
     })
 
-
     const result = await getBalanceUseCase.execute({
       user_id: user.id
     })
@@ -58,13 +55,7 @@ describe("Get Balance", () => {
     expect(result).toHaveProperty("statement")
     expect(result).toHaveProperty("balance")
     expect(result.balance).toEqual(15)
-
-
-    // expect(statement).toHaveProperty("id");
-    // expect(statement.type).toEqual("withdraw")
-
   });
-
 
 });
 
