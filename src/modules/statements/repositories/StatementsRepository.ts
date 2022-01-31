@@ -13,7 +13,7 @@ export class StatementsRepository implements IStatementsRepository {
     this.repository = getRepository(Statement);
   }
 
-  async create({
+  async create ({
     user_id,
     amount,
     description,
@@ -29,26 +29,25 @@ export class StatementsRepository implements IStatementsRepository {
     return this.repository.save(statement);
   }
 
-  async findStatementOperation({ statement_id, user_id }: IGetStatementOperationDTO): Promise<Statement | undefined> {
+  async findStatementOperation ({ statement_id, user_id }: IGetStatementOperationDTO): Promise<Statement | undefined> {
     return this.repository.findOne(statement_id, {
       where: { user_id }
     });
   }
 
-  async getUserBalance({ user_id, with_statement = false }: IGetBalanceDTO):
+  async getUserBalance ({ user_id, with_statement = false }: IGetBalanceDTO):
     Promise<
       { balance: number } | { balance: number, statement: Statement[] }
-    >
-  {
+    > {
     const statement = await this.repository.find({
       where: { user_id }
     });
 
     const balance = statement.reduce((acc, operation) => {
       if (operation.type === 'deposit') {
-        return acc + operation.amount;
+        return acc + +operation.amount;
       } else {
-        return acc - operation.amount;
+        return acc - +operation.amount;
       }
     }, 0)
 
