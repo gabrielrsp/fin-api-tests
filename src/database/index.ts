@@ -14,3 +14,8 @@ export default async (host = "database"): Promise<Connection> => {
     })
   );
 };
+
+
+if (process.env.NODE_ENV !== "test") {
+  (async () => await createConnection())();
+}

@@ -6,6 +6,7 @@ import { hash } from "bcryptjs";
 import { v4 as uuid } from 'uuid'
 
 let connection: Connection;
+let token
 describe("Create Statement Controller", () => {
   beforeAll(async () => {
     connection = await createConnection();
@@ -21,6 +22,17 @@ describe("Create Statement Controller", () => {
         values('${id}', 'admin', 'admin@admin.com', '${password}', 'now()', 'now()')
         `
     )
+
+  })
+
+  beforeEach(async () => {
+    const responseToken = await request(app).post("/api/v1/sessions")
+      .send({
+        email: "admin@admin.com",
+        password: "admin"
+      })
+    token = responseToken.body.token
+
   })
 
   afterAll(async () => {
@@ -29,15 +41,6 @@ describe("Create Statement Controller", () => {
   })
 
   it("should be able to create a new statement", async () => {
-
-    const responseToken = await request(app).post("/api/v1/sessions")
-      .send({
-        email: "admin@admin.com",
-        password: "admin"
-      })
-
-    const { token } = responseToken.body
-
     const response = await request(app).post("/api/v1/statements/deposit").send({
       amount: 10,
       description: "depositou 10 pila"
@@ -49,5 +52,17 @@ describe("Create Statement Controller", () => {
 
   })
 
+
+  it("should not be able to create a withdraw if there is insufficient funds", async () => {
+    const response = await request(app).post("/api/v1/statements/withdraw").send({
+      amount: 100,
+      description: "sacou 100 pila"
+    }).set({
+      Authorization: `Bearer ${token}`
+    })
+
+    expect(response.status).toBe(400)
+
+  })
 
 })

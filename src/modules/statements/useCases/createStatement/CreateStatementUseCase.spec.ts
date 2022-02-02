@@ -1,14 +1,9 @@
 import 'reflect-metadata';
 import { InMemoryStatementsRepository } from '../../repositories/in-memory/InMemoryStatementsRepository'
-
-import { AppError } from '../../../../shared/errors/AppError'
-
 import { CreateStatementUseCase } from './CreateStatementUseCase'
 import { CreateStatementError } from './CreateStatementError'
 import { InMemoryUsersRepository } from '../../../users/repositories/in-memory/InMemoryUsersRepository'
 import { OperationType } from '@modules/statements/entities/Statement'
-
-
 
 let createStatementUseCase: CreateStatementUseCase
 let inMemoryStatementsRepository: InMemoryStatementsRepository
