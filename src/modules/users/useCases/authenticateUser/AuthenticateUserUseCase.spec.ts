@@ -25,12 +25,10 @@ describe("Authenticate user", () => {
   })
 
   it("should be able to create a session from user by getting an authentication token", async () => {
-
     const result = await authenticateUserUseCase.execute({ email: user.email, password: 'test' })
     expect(result).toHaveProperty('token')
 
   });
-
 
 });
 

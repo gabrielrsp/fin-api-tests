@@ -1,8 +1,6 @@
 import 'reflect-metadata';
 import { InMemoryStatementsRepository } from '../../repositories/in-memory/InMemoryStatementsRepository'
 
-import { AppError } from '../../../../shared/errors/AppError'
-
 import { GetStatementOperationUseCase } from './GetStatementOperationUseCase'
 import { CreateStatementUseCase } from '../createStatement/CreateStatementUseCase'
 import { InMemoryUsersRepository } from '../../../users/repositories/in-memory/InMemoryUsersRepository'

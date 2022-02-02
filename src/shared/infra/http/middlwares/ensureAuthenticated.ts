@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from 'jsonwebtoken';
 
-import authConfig from '../../../../config/auth';
+import { authConfig } from '../../../../config/auth';
 import { JWTInvalidTokenError } from "../../../errors/JWTInvalidTokenError";
 import { JWTTokenMissingError } from "../../../errors/JWTTokenMissingError";
 
@@ -9,7 +9,7 @@ interface IPayload {
   sub: string;
 }
 
-export async function ensureAuthenticated(
+export async function ensureAuthenticated (
   request: Request,
   response: Response,
   next: NextFunction
