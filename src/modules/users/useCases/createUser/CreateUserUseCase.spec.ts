@@ -24,7 +24,6 @@ describe("Create user", () => {
 
   });
 
-
 });
 
 
