@@ -3,7 +3,7 @@
   "database": "fin_api",
   "type": "postgres",
   "port": 5432,
-  "host": "localhost",
+  "host": "fin_api_container",
   "username": "docker",
   "entities": [
     "./src/modules/**/entities/*.ts"
